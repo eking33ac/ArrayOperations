@@ -15,9 +15,11 @@ namespace Wk4Ex4_ArrayOperations
             // initialize return value
             int returnValue = Int32.MaxValue;
 
+
             // processing
 
-            // start of a do while loop
+
+            // start of a do while loop to ensure the loop runs at least once
             do
             {
                 // A try catch to ensure the user input is valid
@@ -43,6 +45,31 @@ namespace Wk4Ex4_ArrayOperations
 
 
 
+        // method to get an array's length
+        static int ArrayLength (int[] array)
+        {
+            // initialize return value
+            int returnValue = 0;
+
+
+            // processing
+
+
+            // foreach statement to add each array element to a string list and have a line break afterwards
+            foreach (int i in array)
+            {
+                // add each element to the string and insert a line break afterwards
+                returnValue += 1;
+            }
+
+
+            // return returnValue
+            return returnValue;
+        }
+        
+
+
+
         // method to print all array elements
         public static string PrintArray(int[] array)
         {
@@ -53,14 +80,13 @@ namespace Wk4Ex4_ArrayOperations
             // processing
 
 
-            // Declare variables
-
-
-            // for statement to print each index i in the array
-            for (int i = 0; i == array.Length -1; i++)
+            // foreach statement to add each array element to a string list and have a line break afterwards
+            foreach (int i in array)
             {
-                returnValue += $"{array[i]} \n";
+                // add each element to the string and insert a line break afterwards
+                returnValue += $"{i}\n";
             }
+
 
             // return returnValue
             return returnValue;
@@ -81,7 +107,7 @@ namespace Wk4Ex4_ArrayOperations
             int sum = 0;        // declare int variable to hold the sum of all elements in the array
 
             // for loop to go through the full array
-            for (int i = 0; i < array.Length; i++)
+            for (int i = 0; i < ArrayLength(array); i++)
             {
                 // add each new value to the sum
                 sum += array[i];
@@ -109,17 +135,32 @@ namespace Wk4Ex4_ArrayOperations
 
 
             // Declare variables
-            int max = 0;        // declare int variable to hold the max of all elements in the array
-            int min = 0;        // declare int variable to hold the min of all elements in the array
+            int max = Int32.MinValue;        // declare int variable to hold the max of all elements in the array
+            int min = Int32.MaxValue;        // declare int variable to hold the min of all elements in the array
 
-            // for loop to go through the full array
-            for (int i = 0; i < array.Length; i++)
+            // foreach loop to go through the full array
+            foreach (int i in array)
             {
                 // if the element is greater than the current max
                 if (i > max)
+                {
                     // replace max with new element number
                     max = i;
+                }
             }
+            
+            // foreach loop to go through the full array
+            foreach (int i in array)
+            {
+                // if the element is less than the current min
+                if (i < min)
+                {
+                    // replace min with new element number
+                    min = i;
+                }
+            }
+
+
 
 
             // set return value to the sum
@@ -129,24 +170,52 @@ namespace Wk4Ex4_ArrayOperations
             // return returnValue
             return returnValue;
         }
-        // method to reverse the array and print it backwards
 
+
+
+
+        // method to reverse the array and print it backwards
+        public static string PrintReversedArray(int[] array)
+        {
+            // initialize return value
+            string returnValue = "";
+
+
+            // processing
+
+
+            // Delcare variables
+            int index = ArrayLength(array) - 1;      // Create an index variable to hold the max element in the array and be decreased from there
+
+
+            // foreach statement to add each array element to a string list and have a line break afterwards
+            foreach (int i in array)
+            {
+                // add each element to the string and insert a line break afterwards
+                returnValue += $"{array[index]}\n";
+                // decrement index
+                index--;
+            }
+
+
+            // return returnValue
+            return returnValue;
+        }
 
 
 
 
         static void Main(string[] args)
         {
-
-
             // Declare Variables
             int selection = Int32.MaxValue;     // selection variable
             int[] array10 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }; // Initialize array of values from 1 to 10
 
 
-            // Get the selection of currency to convert to from the user. Account for possible errors with a do while loop.
+
+            // Get the selection of an oporation to perform from the user. Account for possible errors with a do while loop.
             do
-            {                
+            {
                 // Prompt user to choose an operation to perform on the array
                 Console.WriteLine("Select a operation to perform on the sample array:");
 
@@ -168,11 +237,11 @@ namespace Wk4Ex4_ArrayOperations
                 // Validate user's input and store it in the selection variable
                 selection = HandleIntInput("Your desired operation choice (1-4): ", "An error occured. Please ensure you enter a valid whole number.");
 
-                // If the selection isn't between 1 and 3, change the input back to the while evaluation number to have them try again
+                // If the selection isn't between 1 and 4, change the input back to the while evaluation number to have them try again
                 if (!(selection >= 1 && selection <= 4))
                 {
-                    // output a message to prompt user to re-enter the value as a number from 1 to 3
-                    Console.WriteLine("Please input a value between 1 and 3.");
+                    // output a message to prompt user to re-enter the value as a number from 1 to 4
+                    Console.WriteLine("Please input a value between 1 and 4.");
                     // set selection to the max integer value
                     selection = Int32.MaxValue;
                 }
@@ -218,7 +287,7 @@ namespace Wk4Ex4_ArrayOperations
                 // Run this case if selection = 4
                 case 4:
                     // Print all array elements in reverse
-                    Console.WriteLine();
+                    Console.WriteLine(PrintReversedArray(array10));
 
                     // Jump out of switch here.
                     break;
